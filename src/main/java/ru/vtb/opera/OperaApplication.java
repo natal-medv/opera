@@ -14,15 +14,14 @@ public class OperaApplication {
 
         System.out.println("\n*** НАЧАЛО ***");
         OperaRepository operaRepository = ctx.getBean(OperaRepository.class);
+        operaRepository.print();
+
+        System.out.println("\n*** добавляем 'Ромео и Джульета'");
         operaRepository.add(new Opera("Ромео и Джульета", "романтика", 16, 100, 0));
         operaRepository.print();
 
-        System.out.println("\n*** получаем 'Ромео и Джульета'");
-        Opera opera = operaRepository.getOperaByName("Ромео и Джульета");
-        System.out.println(opera.toString());
-
         System.out.println("\n*** изменяем описание у 'name 1'");
-        opera = operaRepository.getOperaByName("name 1");
+        Opera opera = operaRepository.getOperaByName("name 1");
         opera.setDescription("измененное описание");
         operaRepository.edit(opera);
         operaRepository.print();

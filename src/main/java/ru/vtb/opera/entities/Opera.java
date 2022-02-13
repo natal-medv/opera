@@ -12,6 +12,7 @@ public class Opera {
     int allTicketsCount;
     int buyTicketsCount = 0;
 
+    @Override
     public String toString() {
         return "Наименование:" + name
                 + "; Описание:" + description
