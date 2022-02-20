@@ -2,20 +2,35 @@ package ru.vtb.opera.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.vtb.opera.EmailAnnotation;
 import ru.vtb.opera.entities.Opera;
 import ru.vtb.opera.repositories.OperaRepository;
+
+import java.time.LocalDateTime;
 
 @Service
 public class OperaService {
     @Autowired
     OperaRepository operaRepository;
 
+    @EmailAnnotation
     public void add(Opera opera) {
         operaRepository.add(opera);
     }
 
     public void edit(Opera opera) {
         operaRepository.edit(opera);
+    }
+
+    @EmailAnnotation
+    public void changePlayDate(String name, LocalDateTime dateTime) {
+        if (operaRepository.existOpera(name)) {
+            Opera opera = operaRepository.getOperaByName(name);
+            opera.setPlayDate(dateTime);
+            operaRepository.edit(opera);
+        } else {
+            System.out.println("Данной оперы не существует");
+        }
     }
 
     public Opera getOperaByName(String name) {
@@ -42,6 +57,7 @@ public class OperaService {
         }
     }
 
+    @EmailAnnotation
     public void buyTicket(String name) {
         Opera opera = getOperaByName(name);
         if (opera == null) {

@@ -3,10 +3,15 @@ package ru.vtb.opera;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.PropertySource;
 import ru.vtb.opera.entities.Opera;
+import ru.vtb.opera.service.OperaEmailService;
 import ru.vtb.opera.service.OperaService;
 
+import java.time.LocalDateTime;
+
 @SpringBootApplication
+@PropertySource("classpath:email.properties")
 public class OperaApplication {
 
     public static void main(String[] args) {
@@ -18,7 +23,7 @@ public class OperaApplication {
         operaService.print();
 
         System.out.println("\n*** добавляем 'Ромео и Джульета'");
-        operaService.add(new Opera("Ромео и Джульета", "романтика", 16, 100, 0));
+        operaService.add(new Opera("Ромео и Джульета", "романтика", LocalDateTime.of(2022, 04, 1, 11, 20),  16, 100, 0));
         operaService.print();
 
         String operaName = "name 5";
@@ -70,6 +75,12 @@ public class OperaApplication {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
+        operaName = "name 1";
+        System.out.println("\n*** меняем дату и время премьеры у '" + operaName + "'");
+        operaService.printByName(operaName);
+        operaService.changePlayDate(operaName, LocalDateTime.of(2022, 7, 8, 21, 45));
+        operaService.printByName(operaName);
 
         System.out.println("\n*** КОНЕЦ ***");
     }

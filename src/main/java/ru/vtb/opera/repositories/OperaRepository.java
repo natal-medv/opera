@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import ru.vtb.opera.entities.Opera;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +15,9 @@ public class OperaRepository {
     @PostConstruct
     public void init() {
         operas = new ArrayList<>();  // !!! переделать на HashList или TreeList
-        operas.add(new Opera("name 1", "descr 1", 6, 1, 0));
-        operas.add(new Opera("name 2", "descr 2", 12, 40, 0));
-        operas.add(new Opera("name 3", "descr 3", 18, 25, 0));
+        operas.add(new Opera("name 1", "descr 1", LocalDateTime.of(2022, 02, 23, 17, 0), 6, 1, 0));
+        operas.add(new Opera("name 2", "descr 2", LocalDateTime.of(2022, 03, 8, 19, 0), 12, 40, 0));
+        operas.add(new Opera("name 3", "descr 3", LocalDateTime.of(2022, 05, 9, 15, 30), 18, 25, 0));
     }
 
     public void add(Opera opera) {
