@@ -52,22 +52,6 @@ public class OperaApplication {
             System.out.println(e.getMessage());
         }
 
-        System.out.println("\n*** покупаем билет на 'name 1'");
-        try {
-            operaService.buyTicket("name 1");
-            operaService.printByName("name 1");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        System.out.println("\n*** сдаем билет на 'name 1'");
-        try {
-            operaService.returnTicket("name 1");
-            operaService.printByName("name 1");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
         System.out.println("\n*** сдаем билет на 'name 1'");
         try {
             operaService.returnTicket("name 1");

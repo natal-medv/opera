@@ -1,4 +1,4 @@
-package ru.vtb.opera;
+package ru.vtb.opera.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;

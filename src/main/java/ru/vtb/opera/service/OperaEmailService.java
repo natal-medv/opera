@@ -16,6 +16,6 @@ public class OperaEmailService {
         simpleMailMessage.setTo(toAddress);
         simpleMailMessage.setSubject(subject);
         simpleMailMessage.setText(message);
-//        emailSender.send(simpleMailMessage);
+        emailSender.send(simpleMailMessage);
     }
 }
