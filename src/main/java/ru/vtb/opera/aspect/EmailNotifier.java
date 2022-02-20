@@ -10,7 +10,7 @@ import ru.vtb.opera.service.OperaEmailService;
 
 @Aspect
 @Component
-public class EmailAspect {
+public class EmailNotifier {
     @Autowired
     OperaEmailService operaEmailService;
 
