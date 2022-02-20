@@ -4,8 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import ru.vtb.opera.entities.Opera;
-import ru.vtb.opera.model.OperaService;
-import ru.vtb.opera.repositories.OperaRepository;
+import ru.vtb.opera.service.OperaService;
 
 @SpringBootApplication
 public class OperaApplication {

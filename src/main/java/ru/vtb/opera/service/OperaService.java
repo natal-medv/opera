@@ -1,11 +1,9 @@
-package ru.vtb.opera.model;
+package ru.vtb.opera.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.vtb.opera.entities.Opera;
 import ru.vtb.opera.repositories.OperaRepository;
-
-import java.util.NoSuchElementException;
 
 @Service
 public class OperaService {
