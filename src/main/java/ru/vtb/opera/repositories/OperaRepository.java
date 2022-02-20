@@ -13,7 +13,7 @@ public class OperaRepository {
 
     @PostConstruct
     public void init() {
-        operas = new ArrayList<>();
+        operas = new ArrayList<>();  // !!! переделать на HashList или TreeList
         operas.add(new Opera("name 1", "descr 1", 6, 1, 0));
         operas.add(new Opera("name 2", "descr 2", 12, 40, 0));
         operas.add(new Opera("name 3", "descr 3", 18, 25, 0));
@@ -31,30 +31,21 @@ public class OperaRepository {
         operas.remove(operas.indexOf(getOperaByName(name)));
     }
 
+    public boolean existOpera(String name) {
+        long cnt = operas.stream().filter(o -> o.getName().equals(name)).count();
+        if (cnt > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public Opera getOperaByName(String name) {
         return operas.stream().filter(o -> o.getName().equals(name)).findFirst().get();
     }
 
-    public void buyTicket(String name) {
-        Opera opera = getOperaByName(name);
-
-        if (opera.getAllTicketsCount() - opera.getBuyTicketsCount() > 0) {
-            opera.setAllTicketsCount(opera.getAllTicketsCount() - 1);
-            opera.setBuyTicketsCount(opera.getBuyTicketsCount() + 1);
-        } else {
-            throw new IllegalArgumentException("Билеты все распроданы");
-        }
-    }
-
-    public void returnTicket(String name) {
-        Opera opera = getOperaByName(name);
-
-        if (opera.getBuyTicketsCount() - opera.getAllTicketsCount() > 0) {
-            opera.setAllTicketsCount(opera.getAllTicketsCount() + 1);
-            opera.setBuyTicketsCount(opera.getBuyTicketsCount() - 1);
-        } else {
-            throw new IllegalArgumentException("Все билеты уже сданы");
-        }
+    public List<Opera> getAllOperas() {
+        return operas;
     }
 
     public void print() {
