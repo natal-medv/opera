@@ -1,62 +1,18 @@
 package ru.vtb.opera.repositories;
 
-import org.springframework.stereotype.Component;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import ru.vtb.opera.entities.Opera;
 
-import javax.annotation.PostConstruct;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
-@Component
-public class OperaRepository {
-    private List<Opera> operas;
+public interface OperaRepository extends JpaRepository<Opera, Long> {
+    @Query("SELECT o FROM Opera o WHERE o.name LIKE :name")
+    List<Opera> findLikeName(@Param("name") String name);
 
-    @PostConstruct
-    public void init() {
-        operas = new ArrayList<>();  // !!! переделать на HashList или TreeList
-        operas.add(new Opera("name 1", "descr 1", LocalDateTime.of(2022, 02, 23, 17, 0), 6, 1, 0));
-        operas.add(new Opera("name 2", "descr 2", LocalDateTime.of(2022, 03, 8, 19, 0), 12, 40, 0));
-        operas.add(new Opera("name 3", "descr 3", LocalDateTime.of(2022, 05, 9, 15, 30), 18, 25, 0));
-    }
+    @Query("SELECT o FROM Opera o WHERE o.name LIKE :name AND o.description LIKE :desc")
+    List<Opera> findLikeNameDesc(@Param("name") String name, @Param("desc") String desc);
 
-    public void add(Opera opera) {
-        operas.add(opera);
-    }
-
-    public void edit(Opera opera) {
-        operas.set(operas.indexOf(getOperaByName(opera.getName())), opera);
-    }
-
-    public void delete(String name) {
-        operas.remove(operas.indexOf(getOperaByName(name)));
-    }
-
-    public boolean existOpera(String name) {
-        long cnt = operas.stream().filter(o -> o.getName().equals(name)).count();
-        if (cnt > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public Opera getOperaByName(String name) {
-        return operas.stream().filter(o -> o.getName().equals(name)).findFirst().get();
-    }
-
-    public List<Opera> getAllOperas() {
-        return operas;
-    }
-
-    public void print() {
-        for (Opera opera : operas) {
-            System.out.println(opera);
-        }
-    }
-
-    public void printByName(String name) {
-        System.out.println(getOperaByName(name));
-    }
-
+    List<Opera> findByName(String name);
 }
