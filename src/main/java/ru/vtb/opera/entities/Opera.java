@@ -23,6 +23,9 @@ public class Opera {
     @Column(name = "buy_tickets_count")
     Integer buyTicketsCount;
 
+    @Version
+    private Integer version;
+
     public Opera() {
     }
 

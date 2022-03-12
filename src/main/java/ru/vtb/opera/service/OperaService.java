@@ -1,6 +1,10 @@
 package ru.vtb.opera.service;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.security.authentication.LockedException;
@@ -19,11 +23,11 @@ import java.util.Optional;
 import static org.springframework.transaction.annotation.Propagation.REQUIRED;
 
 @Service
-public class OperaService {
-
-    @Autowired
+public class OperaService implements ApplicationContextAware {
+    private ApplicationContext ctx;
     private final OperaRepository operaRepository;
 
+    @Autowired
     public OperaService(OperaRepository operaRepository) {
         this.operaRepository = operaRepository;
     }
@@ -92,22 +96,40 @@ public class OperaService {
 
     @Transactional (
             propagation = REQUIRED,
-            isolation = Isolation.REPEATABLE_READ,
+            isolation = Isolation.DEFAULT,
             readOnly = false
     )
     public void returnTicket(Long id) {
-        Optional<Opera> opera = operaRepository.findById(id);
+        try {
 
-        if (opera.isPresent()) {
-            if (opera.get().getBuyTicketsCount() > 0) {
-                opera.get().setBuyTicketsCount(opera.get().getBuyTicketsCount() - 1);
-                operaRepository.save(opera.get());
+            Opera opera = operaRepository.getForUpdate(id);
+            System.out.println("объект получен");
+            if (opera.getBuyTicketsCount() > 0) {
+                opera.setBuyTicketsCount(opera.getBuyTicketsCount() - 1);
             } else {
                 System.out.println("Все билеты уже сданы");
             }
-        } else {
-            System.out.println("Данной оперы не существует");
+            operaRepository.save(opera);
+            System.out.println("объект записан");
+
+        } catch (NullPointerException e) {
+            System.out.println("Опера с id:" + id + " не найдена");
+        } catch (DataAccessException e) {
+            System.out.println("Объект уже был изменен!");
         }
+
+//        Optional<Opera> opera = operaRepository.findById(id);
+//
+//        if (opera.isPresent()) {
+//            if (opera.get().getBuyTicketsCount() > 0) {
+//                opera.get().setBuyTicketsCount(opera.get().getBuyTicketsCount() - 1);
+//                operaRepository.save(opera.get());
+//            } else {
+//                System.out.println("Все билеты уже сданы");
+//            }
+//        } else {
+//            System.out.println("Данной оперы не существует");
+//        }
     }
 
     public void delete(Opera opera) {
@@ -124,5 +146,10 @@ public class OperaService {
 
     public void printById(Long id) {
         System.out.println(findById(id).get().toString());
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext ctx) throws BeansException {
+        this.ctx = ctx;
     }
 }

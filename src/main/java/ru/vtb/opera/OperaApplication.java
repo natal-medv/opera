@@ -69,51 +69,51 @@ public class OperaApplication {
         operaService.print();
 */
 
-        new Thread(()->{
-            System.out.println("\n*** сдаем билет на id:1");
-            operaService.printById(1L);
-            try {
-                operaService.returnTicket(1L);
-            } catch (Exception e) {
-                System.out.println("thread 1. Wait");
-                System.out.println(e.getMessage());
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-                System.out.println("thread 1. repeat");
-                operaService.returnTicket(1L);
-            }
-            operaService.printById(1L);
-        }).start();
+//        new Thread(()->{
+//            System.out.println("\n*** сдаем билет на id:1");
+//            operaService.printById(1L);
+//            try {
+//                operaService.returnTicket(1L);
+//            } catch (Exception e) {
+//                System.out.println("thread 1. Wait");
+//                System.out.println(e.getMessage());
+//                try {
+//                    Thread.sleep(2000);
+//                } catch (InterruptedException ex) {
+//                    ex.printStackTrace();
+//                }
+//                System.out.println("thread 1. repeat");
+//                operaService.returnTicket(1L);
+//            }
+//            operaService.printById(1L);
+//        }).start();
+//
+//        new Thread(()->{
+//            System.out.println("\n*** сдаем билет на id:1");
+//            operaService.printById(1L);
+//            try {
+//                operaService.returnTicket(1L);
+//            } catch (Exception e) {
+//                System.out.println("thread 2. Wait");
+//                System.out.println(e.getMessage());
+//                try {
+//                    Thread.sleep(2000);
+//                } catch (InterruptedException ex) {
+//                    ex.printStackTrace();
+//                }
+//                System.out.println("thread 2. repeat");
+//                operaService.returnTicket(1L);
+//            }
+//            operaService.printById(1L);
+//        }).start();
 
-        new Thread(()->{
-            System.out.println("\n*** сдаем билет на id:1");
-            operaService.printById(1L);
-            try {
-                operaService.returnTicket(1L);
-            } catch (Exception e) {
-                System.out.println("thread 2. Wait");
-                System.out.println(e.getMessage());
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-                System.out.println("thread 2. repeat");
-                operaService.returnTicket(1L);
-            }
-            operaService.printById(1L);
-        }).start();
 
+        System.out.println("\n*** сдаем билет на id:1");
+        operaService.printById(1L);
+        operaService.returnTicket(1L);
+        operaService.printById(1L);
 
-//        System.out.println("\n*** сдаем билет на id:1");
-//        operaService.printById(1L);
-//        operaService.returnTicket(1L);
-//        operaService.printById(1L);
-
-//        System.out.println("*** END ***");
+        System.out.println("*** END ***");
     }
 
     void returnTicket(Long id) {
