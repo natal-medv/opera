@@ -10,6 +10,7 @@ import ru.vtb.opera.service.OperaService;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.Executor;
 
 @SpringBootApplication
 @PropertySource("classpath:email.properties")
@@ -20,8 +21,12 @@ public class OperaApplication {
         ConfigurableApplicationContext ctx = SpringApplication.run(OperaApplication.class, args);
 
         OperaService operaService = ctx.getBean(OperaService.class);
+
+        System.out.println("*** BEGIN ***");
+
         operaService.print();
 
+/*
         System.out.println("\n*** добавление");
         operaService.addNew(new Opera("Кармен", "Жорж Бизе", LocalDateTime.of(2022, 11, 4, 11, 00),  16, 100, 0));
         operaService.print();
@@ -62,13 +67,56 @@ public class OperaApplication {
         operaService.buyTicket(2L);
         System.out.println("***");
         operaService.print();
+*/
 
-        System.out.println("\n*** сдаем билет на id:1");
-        operaService.print();
-        operaService.returnTicket(1L);
-        System.out.println("***");
-        operaService.print();
+        new Thread(()->{
+            System.out.println("\n*** сдаем билет на id:1");
+            operaService.printById(1L);
+            try {
+                operaService.returnTicket(1L);
+            } catch (Exception e) {
+                System.out.println("thread 1. Wait");
+                System.out.println(e.getMessage());
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                System.out.println("thread 1. repeat");
+                operaService.returnTicket(1L);
+            }
+            operaService.printById(1L);
+        }).start();
 
-        System.out.println("*** END ***");
+        new Thread(()->{
+            System.out.println("\n*** сдаем билет на id:1");
+            operaService.printById(1L);
+            try {
+                operaService.returnTicket(1L);
+            } catch (Exception e) {
+                System.out.println("thread 2. Wait");
+                System.out.println(e.getMessage());
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                System.out.println("thread 2. repeat");
+                operaService.returnTicket(1L);
+            }
+            operaService.printById(1L);
+        }).start();
+
+
+//        System.out.println("\n*** сдаем билет на id:1");
+//        operaService.printById(1L);
+//        operaService.returnTicket(1L);
+//        operaService.printById(1L);
+
+//        System.out.println("*** END ***");
+    }
+
+    void returnTicket(Long id) {
+
     }
 }

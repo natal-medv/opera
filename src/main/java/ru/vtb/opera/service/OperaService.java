@@ -2,14 +2,21 @@ package ru.vtb.opera.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Lock;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import ru.vtb.opera.aspect.EmailAnnotation;
 import ru.vtb.opera.repositories.OperaRepository;
 import ru.vtb.opera.entities.Opera;
 
+import javax.persistence.LockModeType;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.transaction.annotation.Propagation.REQUIRED;
 
 @Service
 public class OperaService {
@@ -63,6 +70,11 @@ public class OperaService {
     }
 
     @EmailAnnotation
+    @Transactional (
+            propagation = REQUIRED,
+            isolation = Isolation.REPEATABLE_READ,
+            readOnly = false
+    )
     public void buyTicket(Long id) {
         Optional<Opera> opera = operaRepository.findById(id);
 
@@ -78,6 +90,11 @@ public class OperaService {
         }
     }
 
+    @Transactional (
+            propagation = REQUIRED,
+            isolation = Isolation.REPEATABLE_READ,
+            readOnly = false
+    )
     public void returnTicket(Long id) {
         Optional<Opera> opera = operaRepository.findById(id);
 
@@ -105,4 +122,7 @@ public class OperaService {
         operaRepository.findAll(Sort.by(Sort.Direction.ASC, "id")).forEach(System.out::println);
     }
 
+    public void printById(Long id) {
+        System.out.println(findById(id).get().toString());
+    }
 }
