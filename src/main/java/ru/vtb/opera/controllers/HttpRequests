@@ -1,0 +1,78 @@
+###
+GET http://localhost:8080/api/v1/operas/all
+Authorization: Basic user 2092abc6-651a-4a73-a429-428c42685867
+
+<> 2022-03-13T123536.200.json
+<> 2022-03-13T123424.200.json
+<> 2022-03-13T123358.200.json
+<> 2022-03-12T221554.200.json
+<> 2022-03-12T221315.200.json
+<> 2022-03-12T221148.200.json
+<> 2022-03-12T215213.200.json
+<> 2022-03-12T215159.200.json
+
+###
+
+GET http://localhost:8080/api/v1/operas?name=Ро
+Authorization: Basic user fb1ed932-55a7-4ede-a2f3-f646b34fcad6
+
+<> 2022-03-12T215815.200.json
+<> 2022-03-12T215300.200.json
+
+###
+
+POST http://localhost:8080/api/v1/operas
+Content-Type: application/json
+Authorization: Basic user 3875a9e2-c33a-4f40-a68d-ad88a72ec53e
+
+{
+  "name": "test1",
+  "playDate": "2022-05-09T13:00:00",
+  "ageCategory": 10,
+  "allTicketsCount": 5,
+  "buyTicketsCount": 0
+}
+
+<> 2022-03-12T222426.200.json
+<> 2022-03-12T221600.403.json
+<> 2022-03-12T221339.403.json
+<> 2022-03-12T221321.403.json
+<> 2022-03-12T221214.403.json
+
+###
+
+PUT http://localhost:8080/api/v1/operas/changeDate
+Content-Type: application/json
+Authorization: Basic user dd0cc4c5-0d24-4a9b-b8fc-bfad12ecfdb6
+
+{
+  "id":40,
+  "playDate": "2022-11-11T19:00:00"
+}
+
+<> 2022-03-13T125212.200.json
+<> 2022-03-13T124223.200.json
+<> 2022-03-13T124036.404.json
+<> 2022-03-13T123831.404.json
+<> 2022-03-13T123642.404.json
+<> 2022-03-13T123226.404.json
+<> 2022-03-13T123205.404.json
+
+###
+
+PUT http://localhost:8080/api/v1/operas/buyTicket?id=1
+Authorization: Basic user a2002b21-b893-4ca4-807a-a16003842e7c
+
+<> 2022-03-13T130009.200.txt
+
+###
+
+PUT http://localhost:8080/api/v1/operas/returnTicket?id=1
+Authorization: Basic user 6f4169ce-84a3-4496-a435-26f613efb792
+
+<> 2022-03-13T130355.200.txt
+
+###
+
+DELETE http://localhost:8080/api/v1/operas/40
+Authorization: Basic user 61606e88-c75a-44a9-a4a1-9b8ea1c92a6c
