@@ -1,4 +1,4 @@
-package ru.vtb.opera.entities;
+package ru.vtb.opera.repositories.entities;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "opera")
-public class Opera {
+public class OperaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -26,10 +26,10 @@ public class Opera {
     @Version
     private Integer version;
 
-    public Opera() {
+    public OperaEntity() {
     }
 
-    public Opera(String name, String description, LocalDateTime playDate, Integer ageCategory, Integer allTicketsCount, Integer buyTicketsCount) {
+    public OperaEntity(String name, String description, LocalDateTime playDate, Integer ageCategory, Integer allTicketsCount, Integer buyTicketsCount) {
         this.name = name;
         this.description = description;
         this.playDate = playDate;

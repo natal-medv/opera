@@ -1,30 +1,23 @@
 package ru.vtb.opera;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
-import ru.vtb.opera.entities.Opera;
 import ru.vtb.opera.service.OperaService;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.Executor;
 
 @SpringBootApplication
 @PropertySource("classpath:email.properties")
 public class OperaApplication {
 
-
     public static void main(String[] args) {
         ConfigurableApplicationContext ctx = SpringApplication.run(OperaApplication.class, args);
 
-        OperaService operaService = ctx.getBean(OperaService.class);
-
-        System.out.println("*** BEGIN ***");
-
-        operaService.print();
+//        OperaService operaService = ctx.getBean(OperaService.class);
+//        System.out.println("*** BEGIN ***");
+//        operaService.print();
 
 /*
         System.out.println("\n*** добавление");
@@ -108,15 +101,11 @@ public class OperaApplication {
 //        }).start();
 
 
-        System.out.println("\n*** сдаем билет на id:1");
-        operaService.printById(1L);
-        operaService.returnTicket(1L);
-        operaService.printById(1L);
-
-        System.out.println("*** END ***");
+//        System.out.println("\n*** сдаем билет на id:1");
+//        operaService.printById(1L);
+//        operaService.returnTicket(1L);
+//        operaService.printById(1L);
+//        System.out.println("*** END ***");
     }
 
-    void returnTicket(Long id) {
-
-    }
 }
