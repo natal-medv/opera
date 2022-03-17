@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
+import ru.vtb.opera.repositories.UserRepository;
 import ru.vtb.opera.service.OperaService;
 
 @SpringBootApplication
@@ -14,6 +15,10 @@ public class OperaApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext ctx = SpringApplication.run(OperaApplication.class, args);
+
+//        UserRepository userRepository = ctx.getBean(UserRepository.class);
+//        userRepository.findAll().stream().forEach(System.out::println);
+
 
 //        OperaService operaService = ctx.getBean(OperaService.class);
 //        System.out.println("*** BEGIN ***");

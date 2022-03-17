@@ -11,10 +11,10 @@ import java.time.LocalDateTime;
 @Data
 public class Opera {
     private Long id;
-    String name;
-    String description;
-    LocalDateTime playDate;
-    Integer ageCategory;
-    Integer allTicketsCount;
-    Integer buyTicketsCount;
+    private String name;
+    private String description;
+    private LocalDateTime playDate;
+    private Integer ageCategory;
+    private Integer allTicketsCount;
+    private Integer buyTicketsCount;
 }
